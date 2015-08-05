@@ -21,5 +21,5 @@
   (let [hash-url (create-short-url url-to-short)
         base-url (second (first headers))]
     (add-elem (hash-map (keyword hash-url) url-to-short))
-    (url-page (str base-url "/" hash-url))))
+    (str base-url "/" hash-url)))
 
