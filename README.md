@@ -1,5 +1,5 @@
 # url-shortener
-Simple Url shortener using clojure
+Simple Url shortener using clojure and clojurescript
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ You will need [Leiningen][] 2.0.0 or above installed.
 
 To start a web server for the application, run:
 
-    lein ring server
+    lein up
 
 ## License
 
