@@ -37,7 +37,7 @@ var response = document.getElementById('short-url');
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
-  post('/short', serializeForm(form), function(err, res) {
+  post('/short', serializeForm(e.target), function(err, res) {
       response.textContent = 'Your shorter url is: ' + res;
   });
 });

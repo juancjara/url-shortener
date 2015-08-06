@@ -16,8 +16,7 @@
       (text-field "url")
       (submit-button "send"))
     [:div {:id "short-url"} ""]
-   (include-js "main.js")
-   ))
+   (include-js "main.js" "js/test.js")))
 
 (defn url-page [url]
   (layout-view [:h1  url]))
