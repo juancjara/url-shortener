@@ -34,7 +34,7 @@
 
       ;; Google Closure (CLS) options configuration
       :compiler {;; CLS generated JS script filename
-       :output-to "resources/public/js/test.js"
+       :output-to "resources/public/js/main.js"
 
        ;; minimal JS optimization directive
        :optimizations :whitespace

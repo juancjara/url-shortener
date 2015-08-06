@@ -11,12 +11,12 @@
 (defn index-page []
   (layout-view
     [:h1 "Url shortener"]
-    (form-to [:post "/short"]
+    (form-to {:id "form"} [:post "/short"]
       (anti-forgery-field)
       (text-field "url")
       (submit-button "send"))
     [:div {:id "short-url"} ""]
-   (include-js "main.js" "js/test.js")))
+   (include-js "js/main.js")))
 
 (defn url-page [url]
   (layout-view [:h1  url]))
