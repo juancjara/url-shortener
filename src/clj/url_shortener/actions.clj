@@ -4,7 +4,7 @@
 
 (defn create-valid-url [url]
   (if (.contains url "http")
-    url
+    urL
     (str "http://" url)))
 
 (defn look-up [url]
@@ -13,7 +13,6 @@
      (get row :original)))
 
 (defn create-short-url [url]
-  (println (first (query/count-urls)))
   (str (get (first (query/count-urls)) :count)))
 
 (defn short-url [url-to-short headers]
