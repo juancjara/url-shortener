@@ -4,7 +4,8 @@
   (:use ring.util.response)
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [url-shortener.models.query-defs :as query]))
 
 (defroutes app-routes
   (GET "/" [] (index-page))
@@ -14,3 +15,6 @@
 
 (def app
   (wrap-defaults app-routes site-defaults))
+
+(defn init []
+  (query/create-shortener-table-if-not-exists!))

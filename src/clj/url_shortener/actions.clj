@@ -1,7 +1,6 @@
 (ns url-shortener.actions
-  (:use url-shortener.views))
-
-(def db (atom {}))
+  (:use url-shortener.views)
+  (:require [url-shortener.models.query-defs :as query]))
 
 (defn create-valid-url [url]
   (if (.contains url "http")
@@ -9,23 +8,16 @@
     (str "http://" url)))
 
 (defn look-up [url]
-  (println "called")
-  (let [key (keyword url)
-        elem (get @db key)
-        new-url (first elem)
-        clicks (inc (second elem))]
-     (swap! db (fn[a] (assoc a key [new-url clicks])))
-     (println @db)
-     (create-valid-url new-url)))
-
-(defn add-elem [elem]
-  (swap! db conj elem))
+  (let [row (first (query/find-url {:short url}))]
+     (query/inc-clicks<! {:id (get row :id)})
+     (get row :original)))
 
 (defn create-short-url [url]
-  (str (count @db)))
+  (println (first (query/count-urls)))
+  (str (get (first (query/count-urls)) :count)))
 
 (defn short-url [url-to-short headers]
   (let [hash-url (create-short-url url-to-short)
         base-url (second (first headers))]
-    (add-elem (hash-map (keyword hash-url) [url-to-short 0]))
-    (str base-url "/" hash-url)))
+    (query/insert-url<! {:short hash-url, :original (create-valid-url url-to-short)})
+    (str base-url "/s/" hash-url)))

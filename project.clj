@@ -10,12 +10,19 @@
                  [ring/ring-defaults "0.1.2"]
                  [org.clojure/clojurescript "0.0-3208"]
                  [cljs-ajax "0.3.13"]
-                 [hiccup "1.0.5"]]
+                 [hiccup "1.0.5"]
+                 [org.clojure/java.jdbc "0.3.6"]
+                 [postgresql/postgresql "9.3-1102.jdbc41"]
+                 [yesql "0.5.0-rc1"]
+                 [environ "1.0.0"]]
 
   :plugins [[lein-ring "0.8.13"]
             [lein-cljsbuild "1.0.6"]
-            [lein-pdo "0.1.1"]]
-  :ring {:handler url-shortener.handler/app}
+            [lein-pdo "0.1.1"]
+            [lein-environ "1.0.0"]]
+
+  :ring {:handler url-shortener.handler/app
+         :init url-shortener.handler/init}
 
   ;;compile both
   :aliases {"up" ["pdo" "cljsbuild" "auto," "ring" "server-headless"]}
@@ -26,6 +33,12 @@
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}}
+
+  :test-env-vars {}
+  :dev-env-vars  {}
+
+  :test [:test-local :test-env-vars]
+  :dev  [:dev-env-vars]
 
   ;; cljsbuild options configuration
   :cljsbuild {:builds
